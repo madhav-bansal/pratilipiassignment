@@ -1,0 +1,192 @@
+{
+	"info": {
+		"_postman_id": "e0dd8598-efa4-4886-9500-1ef9d4f37284",
+		"name": "assignmentapirequests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "contentservice",
+			"item": [
+				{
+					"name": "topbooks-api",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/topbooks/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"topbooks",
+								""
+							]
+						},
+						"description": "Basic get all topbooks request odered by number of likes(decreasing)."
+					},
+					"response": []
+				},
+				{
+					"name": "book reterieve api",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/books/100",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"books",
+								"100"
+							]
+						},
+						"description": "\"/books/{book_id}\" returns the book object with id=book_id else return \"book does not exist\" it is not used anywhere as of now."
+					},
+					"response": []
+				},
+				{
+					"name": "test-api for ingestion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"type": "file",
+									"src": "/F:/pratilipi_assignment/data.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/test/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"test",
+								""
+							]
+						},
+						"description": "the test service is an post request it posts data.csv file . It then inserts books and user objects in db's. please see the data.csv file for its format. please add the data .csv file in request again as location might break."
+					},
+					"response": []
+				},
+				{
+					"name": "book like",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/like/100/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"like",
+								"100",
+								"2"
+							]
+						},
+						"description": "/like/{book_id}/{user_id}: it increase the like of book with id=book_id ,only if user_id is a valid user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "userservice",
+			"item": [
+				{
+					"name": "likeevent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:7000/likeevent/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"likeevent",
+								"1"
+							]
+						},
+						"description": "/likeevent/{user_id}: internally content service calls this to validate if the user with user_id is valid during likeevent. it returns \"valid user\" or \"invalid user\""
+					},
+					"response": []
+				},
+				{
+					"name": "signuprequest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email\n",
+									"value": "example@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Example.password123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:7000/signup/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "7000",
+							"path": [
+								"signup",
+								""
+							]
+						},
+						"description": "simple http request for creating the user and returns the generated user_id. if user with same email id already exist then it will check the password and then returns the already created userid from db(working like login)"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
