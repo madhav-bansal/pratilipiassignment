@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  userservice:
+    container_name: userservice
+    build:
+      context: ./userservice/
+      dockerfile: dockerfile
+    ports:
+      - 7000:7000
+    networks:
+      - db-net
+    volumes:
+      - ./userservice:/userservice
+
+  contentservice:
+    container_name: contentservice
+    build:
+      context: ./contentservice/
+      dockerfile: dockerfile
+    ports:
+      - 8000:8000
+    depends_on:
+      - userservice
+    networks:
+      - db-net
+    volumes:
+      - ./contentservice:/contentservice
+
+  booksapp:
+    container_name: booksapp
+    build:
+      context: ./booksapp/
+      dockerfile: dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - contentservice
+      - userservice
+    networks:
+      - db-net
+    volumes:
+      - ./booksapp:/booksapp
+ 
+networks:
+  db-net:
+    driver: bridge
+
