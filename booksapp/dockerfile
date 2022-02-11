@@ -1,8 +1,11 @@
 FROM node:15.13-alpine
 WORKDIR /booksapp
 
-COPY package.json package-lock.json ./
-RUN npm install 
-RUN npm install react-scripts -g 
-COPY . ./
+COPY package.json ./
+RUN npm i
+RUN npm install axios
+RUN npm install react-scripts@3.4.1 -g
+
+
+COPY . .
 CMD npm start
